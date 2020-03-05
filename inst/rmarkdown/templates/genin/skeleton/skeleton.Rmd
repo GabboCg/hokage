@@ -1,0 +1,48 @@
+---
+title: "Boku no Hero Academia"
+homework_name: "Homework 1"
+
+# professor and assistant information
+date: "`r format(Sys.time(), '%d %B %Y')`"
+professor: "All Mighty"
+assistant: "Izuku Midoriya"
+assistant_mail: "izuku.midoriya@ua.jp"
+course_name: "Clase 1-A"
+course_code: "NCC-1701-D"
+university: "Academia U.A."
+
+logo: "logo.jpg"
+width_logo: "1cm"
+
+instruction_1: "Is about creating a character, providing the rules and guidance you need to make the character you’ll play in the game..." 
+instruction_2: "Details the rules of how to play the game, beyond the basics described in this introduction..."
+instruction_3: "Is all about magic. It covers the nature of magic in the worlds of D&D, the rules for spellcasting..."
+instruction_4: "Is about tools for Dungeon Masters. It includes information and stat blocks for monsters..."
+
+cite: "No such thing as bad student, only bad teacher. Teacher say, student do."
+author_cite: "Nariyoshi Miyagi"
+reference_cite: "Karate Kid 1984"
+
+color_pdf: "astral"  
+color_url: "magenta"
+
+fontsize: 11pt
+geometry: margin=1in
+
+output: hokage::genin
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Pregunta 1
+
+```{r}
+library("tidyverse")
+
+knitr::kable(mtcars[1:5, 1:6]) %>% 
+    kableExtra:: kable_styling(latex_options = "striped")
+```
+
+
