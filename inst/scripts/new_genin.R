@@ -5,8 +5,8 @@ txt_input <- function(..., width = '100%') shiny::textInput(..., width = width)
 
 ui <- miniUI::miniPage(
     miniUI::miniContentPanel(
-        txt_input('title', 'Title', placeholder = 'pdf Title'),
-        txt_input('subtitle', 'Subtitle', placeholder = 'pdf Subtitle'),
+        txt_input('title', 'Title', placeholder = 'add the title here'),
+        txt_input('subtitle', 'Subtitle', placeholder = 'add the subtitle here'),
         shiny::br(),
         shiny::fillRow(
             txt_input('professor', 'Professor', width = '98%'),
@@ -23,7 +23,11 @@ ui <- miniUI::miniPage(
         shiny::fillRow(
             txt_input('lecture', 'Lecture', width = '98%'),
             txt_input('lecture_code', 'Code', width = '98%'),
-            txt_input('university', 'University', width = '98%'),
+            shiny::selectizeInput(
+                'university', 'University', c("Universidad de Chile" = "uchile",
+                                              "Universidad Católica de Chile" = "uc",
+                                              "Universidad Diego Portales" = "udp"),
+                width = '98%'),
             height = '70px'
         ),
         shiny::fillRow(
@@ -43,17 +47,18 @@ ui <- miniUI::miniPage(
             height = '70px'
         ),
         shiny::br(),
-        shiny::fillRow(
-            shiny::radioButtons('cite', 'Do you want to add a cite? (optional)', inline = TRUE,
-                                c('Yes' = 'y', 'No' = 'n')),
-            height = '70px'
-        ),
+        # shiny::fillRow(
+        #     shiny::radioButtons('cite', 'Do you want to add a cite? (optional)', inline = TRUE,
+        #                         c('Yes' = 'y', 'No' = 'n')),
+        #     height = '70px'
+        # ),
         shiny::fillRow(
             txt_input('citetxt', 'Cite', width = '98.5%'),
             txt_input('author', 'Author', width = '98.5%'),
             txt_input('ref', 'Reference', width = '98.5%'),
             height = '70px'
         ),
+        shiny::br(),
         shiny::downloadButton("report", "Generate .Rmd")
     )
 )
@@ -80,10 +85,16 @@ server <- function(input, output, session) {
                 paste0("\nassistant_mail: ", paste0("\'", input$email, "\'")),
                 paste0("\ncourse_name: ", paste0("\'", input$lecture, "\'")),
                 paste0("\ncourse_code: ", paste0("\'", input$lecture_code, "\'")),
-                paste0("\nuniversity: ", paste0("\'", input$university, "\'")),
+                paste0("\nuniversity: ", paste0("\'", switch(input$university,
+                                                             "uchile" = "Universidad de Chile",
+                                                             "uc" = "Pontificia Universidad Católica de Chile",
+                                                             "udp" = "Universidad Diego Portales") , "\'")),
                 "\n",
-                paste0("\nlogo: ", paste0("\'", "logo.jpg", "\'")),
-                paste0("\nwidth_logo: ", paste0("\'", "1cm", "\'")),
+                paste0("\nlogo: ", paste0("\'", input$university, ".jpg", "\'")),
+                paste0("\nwidth_logo: ", paste0("\'", switch(input$university,
+                                                             "uchile" = "1cm",
+                                                             "uc" = "3cm",
+                                                             "udp" = "3cm"), "\'")),
                 "\n",
                 paste0("\ninstruction_1: ", paste0("\'", input$int1, "\'")),
                 paste0("\ninstruction_2: ", paste0("\'", input$int2, "\'")),
@@ -116,7 +127,8 @@ server <- function(input, output, session) {
 
             sink()
 
-            logo_jpg <- system.file("rmarkdown/templates/genin/skeleton/logo.jpg",
+            logo_jpg <- system.file(paste0("rmarkdown/templates/genin/skeleton/",
+                                           input$university, ".jpg"),
                                     package = "hokage")
 
             file.copy(logo_jpg, here::here(input$subdir))
@@ -134,4 +146,5 @@ server <- function(input, output, session) {
 }
 
 shiny::runGadget(shiny::shinyApp(ui, server),
-                 viewer = shiny::dialogViewer('New Genin', height = 1500))
+                 viewer = shiny::dialogViewer('New Genin', height = 1500,
+                                              width = 750))
