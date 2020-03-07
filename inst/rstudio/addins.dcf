@@ -1,0 +1,6 @@
+Name: New Genin
+Description: Create a new genin template with hokage::new_genin().
+Binding: new_genin_addin
+Interactive: true
+
+
