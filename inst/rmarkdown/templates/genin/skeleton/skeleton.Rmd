@@ -11,7 +11,7 @@ course_name: "Clase 1-A"
 course_code: "NCC-1701-D"
 university: "Academia U.A."
 
-logo: "logo.jpg"
+logo: "uchile.jpg"
 width_logo: "1cm"
 
 instruction_1: "Is about creating a character, providing the rules and guidance you need to make the character you’ll play in the game..." 
