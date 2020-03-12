@@ -276,6 +276,8 @@ $endfor$
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
 
+\usepackage[usenames,dvipsnames]{xcolor}
+
 \definecolor{astral}{RGB}{46,116,181}
 \sectionfont{\color{$color_pdf$}}
 \subsectionfont{\normalfont\itshape\color{$color_pdf$}}
@@ -338,11 +340,11 @@ $endfor$
 \LARGE{\color{$color_pdf$} \textbf{$title$}}\\
 \textsc{\color{$color_pdf$} $homework_name$}\\
 \smallskip
-\small{ \noindent \textsc{\textbf{Profesor}: \textit{$professor$}}}
+\small{ \noindent \textbf{Profesor}: \textit{$professor$}}
 \\
-\small{\noindent \textsc{\textbf{Ayudante}: \textit{$assistant$\footnote{\faSend:\href{mailto:}{$assistant_mail$}}}}}
+\small{\noindent \textbf{Ayudante}: \textit{$assistant$\footnote{\faSend:\href{mailto:}{$assistant_mail$}}}}
 \\
-\textsc{\textit{$date$}}
+\textit{$date$}
 \end{center}
 
 \vspace{18pt}
